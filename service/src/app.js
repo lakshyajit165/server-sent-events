@@ -21,6 +21,11 @@ function eventsHandler(request, response, next) {
 
 	const data = `data: ${JSON.stringify(facts)}\n\n`;
 
+	/**
+	 * Reference: https://stackoverflow.com/questions/44692048/what-is-the-difference-between-res-send-and-res-write-in-express#:~:text=end%20So%20the%20key%20difference,end%20.
+	 * res.send is equivalent to res.write + res.end So the key difference is res.send can be called only once where as res.write can be called multiple times followed by a res.end.
+	But apart from that res.send is part of Express. It can automatically detect the length of response header. But there may be be a chance of memory spike with res.send(), in case of large files, our application hangs in between .
+	*/
 	response.write(data);
 
 	const clientId = Date.now();
